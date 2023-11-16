@@ -1,0 +1,112 @@
+input,
+button,
+select,
+option,
+.fab {
+  font-family: sans-serif;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  position: relative;
+  font-weight: 600;
+
+  border: none;
+  color: #fff;
+  background-color: var(--vt-c-dark-mute);
+  padding: 0.75rem 1rem;
+  border-radius: .5rem;
+}
+
+input {
+  outline: unset;
+  border-bottom: 0 solid var(--vt-c-secondary);
+  transition:
+    outline,
+    height 0.25s ease-in-out;
+}
+
+input:focus {
+  border-bottom: 0.125rem solid var(--vt-c-secondary);
+  padding: calc(12px - 0.0625rem) 16px;
+}
+
+input.square {
+  border-radius: unset;
+}
+
+input[data-loading='true'] {
+  border-bottom: 0.125rem dashed var(--vt-c-secondary);
+}
+
+button {
+  width: 100%;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--vt-c-primary-soft);
+}
+
+button:disabled {
+  background-color: var(--vt-c-primary);
+  cursor: not-allowed;
+}
+
+button:active:not(.toggledOn), button.toggledOn {
+  background-color: var(--vt-c-secondary);
+  color: var(--vt-c-dark-mute)
+}
+
+.toggledOff {
+  text-decoration: line-through;
+}
+
+button:active.toggledOn {
+  background-color: var(--vt-c-dark-mute);
+}
+
+.fab {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  border-radius: 100%;
+
+  opacity: 0.75;
+
+  display: grid;
+  align-content: center;
+  justify-content: center;
+
+  aspect-ratio: 1/1;
+  height: 3rem;
+  width: 3rem;
+
+  cursor: pointer;
+
+  z-index: 999;
+}
+
+.fab.fab-bottom-left {
+  top: unset;
+  bottom: 1rem;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  padding: 0.75rem 1.5rem 0.75rem 1rem;
+
+  background: url(@/assets/icon/chevron.svg) no-repeat right .5rem center;
+  background-size: 1rem;
+  cursor: pointer;
+}
+
+select:focus {
+  background: url(@/assets/icon/chevron-down.svg) no-repeat right .5rem center;
+  background-size: 1rem;
+}
+
+select::-ms-expand {
+  display: none;
+}

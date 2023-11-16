@@ -1,0 +1,52 @@
+@import './reset.css';
+
+@import './fonts.css';
+@import './base.css';
+
+@import './fields.css';
+
+body {
+  font-family: lunaHand, sans-serif;
+
+  font-size: 2rem;
+  line-height: 2.5rem;
+}
+
+.container {
+  border-radius: 0.25rem;
+  padding: 1rem 2rem;
+  display: grid;
+  gap: 1rem;
+
+  background-color: var(--color-background-mute);
+}
+
+.artistTags {
+  color: orange;
+}
+
+.copyTags {
+  color: mediumvioletred;
+}
+
+.characterTags {
+  color: green;
+}
+
+.speciesTags {
+  color: orangered;
+}
+
+.generalTags {
+  color: lightblue;
+}
+
+.metaTags {
+  color: white;
+}
+
+@media only screen and (max-width: 520px) {
+  .container {
+    padding: .5rem 1rem
+  }
+}

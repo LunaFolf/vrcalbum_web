@@ -1,0 +1,19 @@
+@font-face {
+  font-family: lunaHand;
+  src: url('./LunaHand.ttf');
+}
+
+.strikethrough {
+  text-decoration: line-through;
+}
+
+.text-ghost {
+  font-size: .75rem;
+}
+
+.text-title {
+  font-size: 2rem;
+  line-height: 2.5rem;
+
+  font-weight: bold;
+}
