@@ -27,20 +27,13 @@ function agreeAgreement() {
       <div class="title">Over 18?</div>
       <div class="body">
         <p>
-          You must be over the age of 18, and agree to
-          <a href="https://e621.net/static/terms_of_service">e621's terms of service</a>, to access
-          this page.
+          This page contains auto-uploaded content from VRChat Photos.
         </p>
         <p>
-          By default, a limited blacklist has been applied hiding content that is commonly objected
-          to.
+          While some care is taken to try avoid uploading NSFW content, some may slip through.
         </p>
-        <div>
-          <p class="strikethrough">
-            You may remove items from this blacklist by using the blacklist menu item.
-          </p>
-          <em>This feature isn't available yet.</em>
-        </div>
+        <p>Also, some suggestive content has remained as well.</p>
+        <p>By continuing, you agree you are over 18 and acknowledge what this site might contain.</p>
       </div>
       <div class="actions">
         <button @click="agreeAgreement">I agree, and am over 18</button>
