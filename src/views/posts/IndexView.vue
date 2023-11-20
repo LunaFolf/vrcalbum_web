@@ -40,6 +40,7 @@ function monthYear(utcTime: number) {
 <style scoped>
 .category-title {
   padding: 1rem 0 .5rem 1rem;
+  color: var(--vt-c-secondary)
 }
 
 .postGrid {

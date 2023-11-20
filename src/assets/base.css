@@ -1,24 +1,32 @@
+.temp {
+  --text: #f2d0fb;
+  --background: #1a0321;
+  --primary: #f372ce;
+  --secondary: #2f040d;
+  --accent: #eb1443;
+}
+
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
   --vt-c-white: #ffffff;
   --vt-c-white-soft: #f8f8f8;
   --vt-c-white-mute: #f2f2f2;
 
-  --vt-c-dark: #01244a;
-  --vt-c-dark-soft: #05284e;
-  --vt-c-dark-mute: #11345a;
+  --vt-c-dark: #130217;
+  --vt-c-dark-soft: #26042f;
+  --vt-c-dark-mute: #380646;
 
-  --vt-c-dark-alpha: #01244add;
-  --vt-c-dark-soft-alpha: #05284edd;
-  --vt-c-dark-mute-alpha: #11345add;
+  --vt-c-dark-alpha: #130217dd;
+  --vt-c-dark-soft-alpha: #26042fdd;
+  --vt-c-dark-mute-alpha: #380646dd;
 
-  --vt-c-primary: #012e57;
-  --vt-c-primary-soft: #05325b;
-  --vt-c-primary-mute: #113e67;
+  --vt-c-primary: #120217;
+  --vt-c-primary-soft: #25042f;
+  --vt-c-primary-mute: #370746;
 
-  --vt-c-secondary: #fcb328;
-  --vt-c-secondary-soft: #ffb72c;
-  --vt-c-secondary-mute: #ffc338;
+  --vt-c-secondary: #bc1035;
+  --vt-c-secondary-soft: #d3123c;
+  --vt-c-secondary-mute: #eb1443;
 
   --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
   --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
