@@ -13,27 +13,24 @@ function declineAgreement() {
 function agreeAgreement() {
   authStore.agreeToTerms(true)
 
-  const returnPath = route.query.returnTo
-
-  console.log('returning to', returnPath || { name: 'posts' })
-
-  router.push(returnPath || { name: 'posts' })
+  const returnPath = route.query.returnTo || { name: 'posts' }
+  console.log('returning to', returnPath)
+  router.push(returnPath)
 }
 </script>
 
 <template>
   <main>
     <div class="container">
-      <div class="title">Over 18?</div>
+      <div class="title">Wait!</div>
       <div class="body">
         <p>
-          This page contains auto-uploaded content from VRChat Photos.
+          This page contains auto-uploaded content from VRChat Photos, some of which is suggestive content.
         </p>
         <p>
-          While some care is taken to try avoid uploading NSFW content, some may slip through.
+          While <em>some</em> level of care has been taken to try avoid uploading NSFW content, it is not impossible that some may have been uploaded.
         </p>
-        <p>Also, some suggestive content has remained as well.</p>
-        <p>By continuing, you agree you are over 18 and acknowledge what this site might contain.</p>
+        <p>By continuing, you agree you are over 18 and acknowledge that you may see suggestive and/or NSFW content.</p>
       </div>
       <div class="actions">
         <button @click="agreeAgreement">I agree, and am over 18</button>
@@ -49,7 +46,7 @@ main {
 
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: 50vw;
+  grid-template-columns: 90vw;
 
   justify-content: center;
   align-items: center;
@@ -59,6 +56,7 @@ main {
   text-align: center;
   font-size: 3rem;
   line-height: 3.5rem;
+  letter-spacing: .25rem;
 
   font-weight: bold;
 }
@@ -74,9 +72,9 @@ main {
   gap: 0.5rem;
 }
 
-@media only screen and (max-width: 520px) {
+@media only screen and (min-width: 48rem) {
   main {
-    grid-template-columns: 90vw
+    grid-template-columns: 50vw;
   }
 }
 </style>
