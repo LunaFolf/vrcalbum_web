@@ -12,7 +12,7 @@ const router = createRouter({
     {
       path: '/posts',
       name: 'posts',
-      component: () => import('../views/posts/IndexView.vue')
+      redirect: '/series'
     },
     {
       path: '/series',
