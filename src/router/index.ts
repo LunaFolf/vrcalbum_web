@@ -15,6 +15,11 @@ const router = createRouter({
       component: () => import('../views/posts/IndexView.vue')
     },
     {
+      path: '/series',
+      name: 'series',
+      component: () => import('../views/posts/SeriesView.vue')
+    },
+    {
       path: '/posts/:fileName',
       name: 'postsView',
       component: () => import('../views/posts/DetailView.vue')

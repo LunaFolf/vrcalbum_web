@@ -9,3 +9,7 @@ export async function getPosts(): Promise<any[]> {
   })
 }
 
+export async function getSeries(): Promise<any[]> {
+  return await get('https://cdn.folf.io/vrc_album/series.json') as Post[][]
+}
+
