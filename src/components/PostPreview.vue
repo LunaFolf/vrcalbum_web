@@ -1,104 +1,76 @@
 <script setup lang="ts">
-import {defineProps, watch} from 'vue'
-import { vElementVisibility } from '@vueuse/components'
-import { ref } from 'vue'
-import router from '@/router'
+import {defineProps} from 'vue'
 
 const props = defineProps({
   post: Object,
-  isLastItem: Boolean,
-  full: Boolean,
+  fileName: String
 })
-
-const emit = defineEmits(['nextPage'])
-
-const isVisible = ref(false)
-
-if (props.isLastItem) {
-  watch(isVisible, isVisible => {
-    if (isVisible) emit('nextPage')
-  })
-}
-
-function onElementVisibility(state: boolean) {
-  if (props.isLastItem) isVisible.value = state
-}
 
 function getUrlFromPath(path: string) {
   return `https://cdn.folf.io/vrc_album/${path}`
 }
 
+function formattedDate() {
+  return new Date(props.post.date).toLocaleString()
+}
+
+function resolution() {
+  const splitByPeriod = props.fileName.split('.')
+  splitByPeriod.pop()
+  const splitByUnderscore = splitByPeriod.join('.').split('_')
+  return splitByUnderscore.pop()
+}
+
 </script>
 
 <template>
-  <div
-    class="post"
-    style="cursor: pointer"
-    :class="[full ? 'full' : '']"
-    v-element-visibility="onElementVisibility"
-  >
-    <img :src="full ? getUrlFromPath(post.fileName) : getUrlFromPath(post.thumbName)" alt="" />
+  <div class="image-card" :id="fileName">
+    <img :src="getUrlFromPath(post.thumbName)" :alt="post.fileName" />
+    <div class="image-overlay">
+      <p>{{ formattedDate() }}</p>
+      <p>{{ resolution() }}</p>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.post {
-  aspect-ratio: 1/1;
+.image-card {
   position: relative;
-
   overflow: hidden;
+  border-radius: .5rem;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  aspect-ratio: 16 / 9;
+  cursor: pointer;
 }
 
-.post.full {
-  aspect-ratio: unset;
+.image-card:hover {
+  transform: scale(1.05);
 }
 
-.post .artists {
-  font-size: 1rem;
-  line-height: 1.5rem;
-
-  font-weight: 900;
-
-  position: absolute;
-  bottom: 0.25rem;
-  right: 0.25rem;
-
-  color: var(--vt-c-text-dark-1);
-
-  filter: drop-shadow(0.25rem 0.25rem 0.125rem var(--vt-c-dark));
-}
-
-.post .icons {
-  position: absolute;
-  top: 0.25rem;
-  left: 0.25rem;
-
-  grid-auto-flow: column;
-
-  display: grid;
-  gap: 0.125rem;
-}
-
-.post img {
+.image-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.post.safe,
-.post.questionable,
-.post.explicit {
-  border-bottom-style: inset;
-  border-bottom-width: 0.25rem;
+.image-overlay {
+  position: absolute;
+  bottom: -.125rem;
+  left: -.125rem;
+  right: -.125rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
 }
 
-.post.safe {
-  border-color: seagreen;
+.image-card:hover .image-overlay {
+  transform: translateY(0);
 }
-.post.questionable {
-  border-color: darkorange;
-}
-.post.explicit {
-  border-color: mediumvioletred;
+
+.image-overlay p {
+  margin: 0;
+  font-size: 1.125rem;
 }
 </style>

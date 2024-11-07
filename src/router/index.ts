@@ -12,12 +12,27 @@ const router = createRouter({
     {
       path: '/posts',
       name: 'posts',
-      redirect: '/series'
+      redirect: '/series',
     },
     {
       path: '/series',
       name: 'series',
-      component: () => import('../views/posts/SeriesView.vue')
+      component: () => import('../views/posts/SeriesView.vue'),
+      beforeEnter: (to, from, next) => {
+        console.log('hi', to, from)
+        if (from.name === 'postsView' && (to.query.fileName !== from.params.fileName)) {
+          console.log('pushing to series with query')
+          next({
+            name: 'series',
+            query: {
+              fileName: from.params.fileName
+            }
+          })
+        } else {
+          console.log('continuing as normal')
+          next()
+        }
+      }
     },
     {
       path: '/posts/:fileName',
@@ -30,7 +45,6 @@ const router = createRouter({
 router.beforeEach((to, from) => {
   const authStore = useAuthenticationStore()
   if (!authStore.userAgreedToTerms && to.name !== 'terms') {
-    console.log('a')
     return { name: 'terms', query: { returnTo: to.path } }
   }
 

@@ -1,63 +1,20 @@
 <script setup lang="ts">
-import {usePostsStore} from '@/stores/posts'
 import {onBeforeRouteLeave, useRoute, useRouter} from 'vue-router'
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import {Ref, ref, watch} from "vue";
+import {usePhotoStore} from "@/stores/photos";
 
-const postsStore = usePostsStore()
+const photoStore = usePhotoStore();
 const route = useRoute()
 const router = useRouter()
 
-const post: Ref<Post> = ref({})
 const navigation = ref({})
 
 const postMediaPlaceholderStyle = ref('')
 
-async function loadPost() {
-  post.value = await postsStore.getPost(<string>route.params.fileName)
-  generatePlaceholderStyle()
-
-  navigation.value = postsStore.getPagination(post.value.fileName)
-}
-
-watch(() => route.params.fileName, loadPost)
-
-loadPost()
-
-function generatePlaceholderStyle (): void {
-  const { width, height, ratio } = post.value;
-  const innerWidth = window.innerWidth;
-  const innerHeight = window.innerHeight;
-
-  const isWidthBigger = width > height;
-
-  console.log({
-    isWidthBigger,
-    innerWidth,
-    innerHeight,
-    ratio
-  })
-
-  postMediaPlaceholderStyle.value = isWidthBigger
-    ? `width:${innerWidth}px;height:${innerWidth / ratio}px`
-    : `height:${innerHeight}px;width:${innerHeight * ratio}px`
-
-  console.log(postMediaPlaceholderStyle.value)
-}
-
-window.onresize = () => {
-  generatePlaceholderStyle()
-}
 
 function getUrlFromPath(path: string) {
   return `https://cdn.folf.io/vrc_album/${path}`
-}
-
-function openPost(fileName) {
-  router.push({
-    name: 'postsView',
-    params: { fileName }
-  })
 }
 
 const navigationHandler = ({ key }) => {
@@ -68,7 +25,6 @@ const navigationHandler = ({ key }) => {
 window.addEventListener('keyup', navigationHandler)
 
 onBeforeRouteLeave(() => {
-    console.log('removing navigation handler')
     window.removeEventListener('keyup', navigationHandler)
 })
 
@@ -81,7 +37,7 @@ window.scrollTo(0,0)
   </div>
   <div>
     <div class="postMedia">
-      <img :key="post.fileName" :src="getUrlFromPath(post.fileName)" :alt="post.fileName" :style="postMediaPlaceholderStyle" />
+      <img :key="route.params.fileName" :src="getUrlFromPath(route.params.fileName)" :alt="route.params.fileName" :style="postMediaPlaceholderStyle" />
 
       <div id="postNavigation" class="postNavigation">
         <button v-if="navigation.previousFile" class="left" @click="openPost(navigation.previousFile)">
@@ -92,9 +48,9 @@ window.scrollTo(0,0)
         </button>
       </div>
 
-      <div class="postNavigationTip">
-        <p>TIP: You can use your left and right arrow keys to scroll posts</p>
-      </div>
+<!--      <div class="postNavigationTip">-->
+<!--        <p>TIP: You can use your left and right arrow keys to scroll posts</p>-->
+<!--      </div>-->
     </div>
   </div>
 </template>

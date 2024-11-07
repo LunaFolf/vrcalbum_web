@@ -1,10 +1,23 @@
 <script setup lang="ts">
 import PostPreview from '@/components/PostPreview.vue'
-import router from "@/router";
 import { DateTime } from 'luxon'
-import {getSeries} from "@/api/folf/posts";
+import {usePhotoStore} from "@/stores/photos";
+import {useRoute, useRouter} from "vue-router";
 
-const series = await getSeries()
+const route = useRoute()
+const router = useRouter()
+
+console.log('query', route.query)
+
+const photoStore = usePhotoStore();
+photoStore.loadNewImages().then(() => {
+  const fileName = route.query.fileName
+  const imageEl = document.getElementById(fileName)
+  if (fileName) {
+    console.log('Scrolling to', fileName, imageEl)
+    imageEl?.scrollIntoView();
+  }
+})
 
 function openPost(fileName: string) {
   router.push({
@@ -13,44 +26,42 @@ function openPost(fileName: string) {
   })
 }
 
-function sessionName(sessionKey: number) {
-  const imageDate = series[sessionKey][0].date
-  return DateTime.fromISO(imageDate).toLocaleString(DateTime.DATETIME_FULL)
-}
+function sessionName(sessionIndex: number) {
+  const sessionName = `Session ${photoStore.sessions.length - sessionIndex}`
+  const photoCount = photoStore.sessions[sessionIndex].length
 
+  return `${sessionName} [${photoCount} photo${photoCount > 1 ? 's' : ''}]`
+}
 </script>
 
 <template>
-  <div v-for="(images, key) in series">
-    <div class="category-title text-title">{{ sessionName(key) }}</div>
-    <div class="postGrid">
-      <post-preview
-        v-for="(post, index) in images"
-        :key="post.fileName"
-        :post="post"
-        :isLastItem="index + 1 === images.length"
-        @click="openPost(post.fileName)"
-      />
-    </div>
-  </div>
+  <template v-if="photoStore.sessions.length">
+    <section v-for="(images, key) in photoStore.sessions" :key="key" class="session">
+      <h4>{{ sessionName(key) }}</h4>
+      <div class="image-grid">
+        <post-preview
+          v-for="fileName in images"
+          :key="fileName"
+          :file-name="fileName"
+          :post="photoStore.getPhoto(fileName)"
+          @click="openPost(fileName)"
+        />
+      </div>
+    </section>
+  </template>
+  <template v-else>
+    loading :3
+  </template>
 </template>
 
 <style scoped>
-.category-title {
-  padding: 1rem 0 .5rem 1rem;
-  color: var(--vt-c-secondary)
+.session {
+  margin-bottom: 40px;
 }
 
-.postGrid {
-  position: relative;
+.image-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.25rem;
-}
-
-@media only screen and (min-width: 16rem) {
-  .postGrid {
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  }
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
 }
 </style>
