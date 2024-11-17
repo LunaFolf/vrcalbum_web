@@ -15,5 +15,18 @@ export const usePhotoStore = defineStore('photos', () => {
     return photos.value[fileName]
   }
 
-  return { photos, sessions, loadNewImages, getPhoto }
+  function getPagination(fileName: string) {
+    const photoKeys = Object.keys(photos.value)
+    const currentIndex = photoKeys.findIndex(key => key === fileName)
+    const previousFile = photoKeys[currentIndex - 1]
+    const nextFile = photoKeys[currentIndex + 1]
+
+    return {
+      currentIndex,
+      previousFile,
+      nextFile
+    }
+  }
+
+  return { photos, sessions, loadNewImages, getPhoto, getPagination }
 })

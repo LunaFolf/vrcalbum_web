@@ -12,6 +12,24 @@ const navigation = ref({})
 
 const postMediaPlaceholderStyle = ref('')
 
+async function refreshNav() {
+  if (photoStore.sessions.length <= 1) await photoStore.loadNewImages()
+  console.log('refreshing nav')
+  navigation.value = photoStore.getPagination(route.params.fileName)
+  console.log(navigation.value)
+}
+
+refreshNav()
+
+function openPost(fileName) {
+  router.push({
+    name: 'postsView',
+    params: { fileName }
+  }).then(() => {
+    refreshNav() // this feels wrong but fuck it im tired
+  })
+}
+
 
 function getUrlFromPath(path: string) {
   return `https://cdn.folf.io/vrc_album/${path}`
@@ -48,9 +66,9 @@ window.scrollTo(0,0)
         </button>
       </div>
 
-<!--      <div class="postNavigationTip">-->
-<!--        <p>TIP: You can use your left and right arrow keys to scroll posts</p>-->
-<!--      </div>-->
+      <div class="postNavigationTip">
+        <p>TIP: You can use your left and right arrow keys to scroll posts</p>
+      </div>
     </div>
   </div>
 </template>
@@ -96,7 +114,9 @@ window.scrollTo(0,0)
   font-size: 1.25rem;
   line-height: 1.75rem;
   font-weight: 1000;
-  top: calc(100% - 1.75rem);
+  top: calc(100% - 2.75rem);
+  background-color: rgba(0, 0, 0, 0.35);
+  padding: .5rem 1rem;
 }
 
 .postNavigation .left {
@@ -144,7 +164,7 @@ window.scrollTo(0,0)
 .postMedia {
   display: flex;
   justify-content: center;
-  max-height: 100vh;
+  max-height: calc(100vh - 1rem);
   max-width: 100vw;
 
   position: relative;
