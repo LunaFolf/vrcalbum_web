@@ -9,7 +9,16 @@ const route = useRoute()
     <div class="actions">
       <font-awesome-icon
         v-if="$route.name !== 'home'"
+        :icon="['fas', 'arrow-square-left']"
+        size="lg"
+        title="Go Back"
+        @click="$router.back()"
+      />
+      <font-awesome-icon
+        v-if="$route.name !== 'home'"
         :icon="['fas', 'home']"
+        size="lg"
+        title="Home"
         @click="$router.push('/home')"
       />
     </div>
@@ -35,6 +44,7 @@ const route = useRoute()
 
 .actions {
   display: flex;
+  gap: 1rem;
   align-items: center;
   justify-items: center;
 
