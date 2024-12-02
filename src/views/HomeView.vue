@@ -5,7 +5,7 @@
 <template>
   <div class="sessions">
     <div class="session-card" @click="$router.push('sessions')">
-      <p>Photos grouped sessions</p>
+      <p>Photos grouped by sessions</p>
     </div>
     <div class="session-card" @click="$router.push('everything')">
       <p>All photos</p>
