@@ -12,11 +12,31 @@ const router = createRouter({
     {
       path: '/posts',
       name: 'posts',
-      redirect: '/series',
+      redirect: '/home',
     },
     {
       path: '/series',
       name: 'series',
+      redirect: '/home'
+    },
+    {
+      path: '/home',
+      name: 'home',
+      component: () => import('../views/HomeView.vue')
+    },
+    {
+      path: '/sessions',
+      name: 'sessions',
+      component: () => import('../views/sessions/IndexView.vue')
+    },
+    {
+      path: '/sessions/:sessionKey',
+      name: 'sessionView',
+      component: () => import('../views/sessions/SeasonView.vue')
+    },
+    {
+      path: '/everything',
+      name: 'everything',
       component: () => import('../views/posts/SeriesView.vue'),
       beforeEnter: (to, from, next) => {
         console.log('hi', to, from)

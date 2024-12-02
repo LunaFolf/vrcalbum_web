@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import {defineProps} from 'vue'
+import {usePhotoStore} from "@/stores/photos";
+
+const photoStore = usePhotoStore();
 
 const props = defineProps({
   post: Object,
   fileName: String
 })
-
-function getUrlFromPath(path: string) {
-  return `https://cdn.folf.io/vrc_album/${path}`
-}
 
 function formattedDate() {
   return new Date(props.post.date).toLocaleString()
@@ -25,7 +24,7 @@ function resolution() {
 
 <template>
   <div class="image-card" :id="fileName">
-    <img :src="getUrlFromPath(post.thumbName)" :alt="post.fileName" />
+    <img :src="photoStore.getUrlFromPath(post.thumbName)" :alt="post.fileName" />
     <div class="image-overlay">
       <p>{{ formattedDate() }}</p>
       <p>{{ resolution() }}</p>

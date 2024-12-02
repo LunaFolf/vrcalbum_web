@@ -3,6 +3,7 @@ import PostPreview from '@/components/PostPreview.vue'
 import { DateTime } from 'luxon'
 import {usePhotoStore} from "@/stores/photos";
 import {useRoute, useRouter} from "vue-router";
+import {computed, ref} from "vue";
 
 const route = useRoute()
 const router = useRouter()
@@ -25,22 +26,29 @@ function openPost(fileName: string) {
     params: { fileName }
   })
 }
+
+const sessionKey = computed(() => {
+  var index = Number(route.params?.sessionKey)
+  if (index <= 0) index = 1
+
+  return photoStore.sessions.length - index
+})
+
 </script>
 
 <template>
   <template v-if="photoStore.sessions.length">
-    <section v-for="(images, key) in photoStore.sessions" :key="key" class="session">
-      <h4>{{ photoStore.getSessionName(key) }}</h4>
+    <h4>{{ photoStore.getSessionName(sessionKey) }}</h4>
       <div class="image-grid">
         <post-preview
-          v-for="fileName in images"
+          v-for="fileName in photoStore.sessions[sessionKey]"
           :key="fileName"
           :file-name="fileName"
           :post="photoStore.getPhoto(fileName)"
           @click="openPost(fileName)"
         />
       </div>
-    </section>
+
   </template>
   <template v-else>
     loading :3

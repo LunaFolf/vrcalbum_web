@@ -9,7 +9,8 @@ body {
   /*font-family: lunaHand, sans-serif;*/
 
   font-family: 'Atkinson Hyperlegible', sans-serif;
-  font-size: 2rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
 
   padding: .5rem 1rem;
 }

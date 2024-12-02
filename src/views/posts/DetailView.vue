@@ -30,7 +30,6 @@ function openPost(fileName) {
   })
 }
 
-
 function getUrlFromPath(path: string) {
   return `https://cdn.folf.io/vrc_album/${path}`
 }
@@ -50,7 +49,7 @@ window.scrollTo(0,0)
 </script>
 
 <template>
-  <div class="fab" @click="router.push({ name: 'posts' })">
+  <div class="fab" @click="router.back()">
     <font-awesome-icon icon="backward" />
   </div>
   <div>
