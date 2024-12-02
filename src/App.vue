@@ -5,17 +5,15 @@ const route = useRoute()
 </script>
 
 <template>
-  <div class="title" v-if="$route.name !== 'postsView'">
+  <div class="title" :class="{'no-actions': ['home'].includes($route?.name as string || '')}" v-if="$route.name !== 'postsView'">
     <div class="actions">
       <font-awesome-icon
-        v-if="$route.name !== 'home'"
         :icon="['fas', 'arrow-square-left']"
         size="lg"
         title="Go Back"
         @click="$router.back()"
       />
       <font-awesome-icon
-        v-if="$route.name !== 'home'"
         :icon="['fas', 'home']"
         size="lg"
         title="Home"
@@ -42,6 +40,10 @@ const route = useRoute()
   gap: 1rem;
 }
 
+.title.no-actions {
+  grid-template-columns: 1fr;
+}
+
 .actions {
   display: flex;
   gap: 1rem;
@@ -49,6 +51,10 @@ const route = useRoute()
   justify-items: center;
 
   color: var(--vt-c-secondary);
+}
+
+.title.no-actions .actions {
+  display: none;
 }
 
 .actions * {
