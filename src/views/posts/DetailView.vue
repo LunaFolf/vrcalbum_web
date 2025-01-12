@@ -31,7 +31,7 @@ function openPost(fileName) {
 }
 
 function getUrlFromPath(path: string) {
-  return `https://cdn.folf.io/vrc_album/${path}`
+  return `https://tempcdn.folf.io/vrc_album/${path}`
 }
 
 const navigationHandler = ({ key }) => {

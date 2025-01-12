@@ -20,12 +20,7 @@ function convertToUrlParams(params?: urlParams): URLSearchParams {
 
 export async function get(url: string, params?: urlParams): Promise<jsonResponse> {
   const urlParams = convertToUrlParams(params)
-  const response = await fetch(url + '?' + new URLSearchParams(urlParams), {
-    mode: 'cors',
-    headers: {
-      'Access-Control-Allow-Origin': '*'
-    }
-  })
+  const response = await fetch(url + '?' + new URLSearchParams(urlParams))
 
   if (!response.ok) {
     console.error(response)

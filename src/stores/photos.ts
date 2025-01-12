@@ -29,14 +29,14 @@ export const usePhotoStore = defineStore('photos', () => {
   }
 
   function getUrlFromPath(path: string) {
-    return `https://cdn.folf.io/vrc_album/${path}`
+    return `https://tempcdn.folf.io/vrc_album/${path}`
   }
 
   function getThumbnailFromPath(path: string) {
-    if (!path.endsWith('.png') && path.endsWith('THUMB.webp')) return `https://cdn.folf.io/vrc_album/${path}`
+    if (!path.endsWith('.png') && path.endsWith('THUMB.webp')) return `https://tempcdn.folf.io/vrc_album/${path}`
     if (path.endsWith('.png')) {
       const splitPath = path.split('.png')
-      return `https://cdn.folf.io/vrc_album/${splitPath[0]}_THUMB.webp`
+      return `https://tempcdn.folf.io/vrc_album/${splitPath[0]}_THUMB.webp`
     }
   }
 
