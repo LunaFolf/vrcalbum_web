@@ -41,9 +41,9 @@ const router = createRouter({
       beforeEnter: (to, from, next) => {
         console.log('hi', to, from)
         if (from.name === 'postsView' && (to.query.fileName !== from.params.fileName)) {
-          console.log('pushing to series with query')
+          console.log('pushing to everything with query')
           next({
-            name: 'series',
+            name: 'everything',
             query: {
               fileName: from.params.fileName
             }
@@ -64,14 +64,18 @@ const router = createRouter({
 
 router.beforeEach((to, from) => {
   const authStore = useAuthenticationStore()
+  console.log('a', to, from)
   if (!authStore.userAgreedToTerms && to.name !== 'terms') {
+    console.log('b')
     return { name: 'terms', query: { returnTo: to.path } }
   }
 
+  console.log('c')
   if (authStore.userAgreedToTerms && to.name === 'terms') {
     let sendTo = from.name || 'posts'
     if (sendTo === 'terms') sendTo = 'posts'
 
+    console.log('d')
     return { name: sendTo }
   }
 })
